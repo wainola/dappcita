@@ -5,16 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // import drizzle functions and contract artifact
-import { Drizzle } from "@drizzle/store";
-import MyStringStore from "./contracts/MyStringStore.json";
+import { Drizzle } from '@drizzle/store';
+import MyStringStore from './contracts/MyStringStore.json';
+import Adoption from './contracts/Adoption.json';
 
 // let drizzle know what contracts we want and how to access our test blockchain
 const options = {
-  contracts: [MyStringStore],
+  contracts: [MyStringStore, Adoption],
   web3: {
     fallback: {
-      type: "ws",
-      url: "ws://127.0.0.1:9545",
+      type: 'ws',
+      url: 'ws://127.0.0.1:9545',
     },
   },
 };
@@ -24,9 +25,9 @@ const drizzle = new Drizzle(options);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App drizzle={drizzle}/>
+    <App drizzle={drizzle} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

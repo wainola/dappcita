@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import ReadString from './ReadString';
 import SetString from './SetString';
+import Pets from './Pets';
 
 function App({ drizzle }) {
   const [state, setState] = useState({
@@ -37,6 +38,9 @@ function App({ drizzle }) {
           </div>
           <div>
             <SetString drizzle={drizzle} drizzleState={state.drizzleState} />
+          </div>
+          <div>
+            <Pets drizzle={drizzle} drizzleState={state.drizzleState} />
           </div>
         </>
       )}

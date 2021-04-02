@@ -3,14 +3,16 @@ import { useState } from 'react';
 const SetString = ({ drizzle, drizzleState }) => {
   const [state, setState] = useState({
     stackId: null,
+    stackId2: null,
   });
 
-  const handleChange = (evt) => {
+  const handleChange = async (evt) => {
     const {
       target: { value },
     } = evt;
+
     const {
-      contracts: { MyStringStore: contract },
+      contracts: { MyStringStore: contract, Adoption: contractAdoption },
     } = drizzle;
 
     const stackId = contract.methods['set'].cacheSend(value, {
@@ -32,7 +34,7 @@ const SetString = ({ drizzle, drizzleState }) => {
     }`;
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
 
     console.log(getTxStatus());
