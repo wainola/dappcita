@@ -1,20 +1,34 @@
-import { useEffect } from "react"
+import { useEffect, useState } from 'react';
 
-const ReadString = ({
-    drizzle,
-    drizzleState
-}) => {
-    useEffect(() => {
-      console.log("weas")
-        console.log(drizzle)
-        console.log(drizzleState)
-    }, [])
+const ReadString = ({ drizzle, drizzleState }) => {
+  const [state, setState] = useState({});
+  const [myString, setMyString] = useState('');
+  useEffect(() => {
+    const contract = drizzle.contracts.MyStringStore;
 
-    return (
-        <div>
-            ReadString Component
-        </div>
-    )
-}
+    const dataKey = contract.methods['myString'].cacheCall();
 
-export default ReadString
+    setState({
+      dataKey,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(state).length) {
+      const {
+        contracts: { MyStringStore },
+      } = drizzleState;
+
+      const myString = MyStringStore.myString[state.dataKey];
+      setMyString(myString);
+    }
+  }, [state]);
+
+  return (
+    <div>
+      <p>My stored string : {myString && myString.value}</p>
+    </div>
+  );
+};
+
+export default ReadString;
